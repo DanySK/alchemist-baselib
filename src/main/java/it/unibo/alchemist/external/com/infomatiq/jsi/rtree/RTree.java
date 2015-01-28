@@ -812,9 +812,6 @@ public class RTree implements SpatialIndex, Serializable {
 		double maxDifference = Float.NEGATIVE_INFINITY;
 		int next = 0;
 		int nextGroup = 0;
-
-		maxDifference = Float.NEGATIVE_INFINITY;
-
 		for (int i = 0; i < maxNodeEntries; i++) {
 			if (entryStatus[i] == ENTRY_STATUS_UNASSIGNED) {
 
