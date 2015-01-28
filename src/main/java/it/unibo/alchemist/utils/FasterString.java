@@ -35,8 +35,8 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	private static final HashFunction HASHF = Hashing.murmur3_128();
 	private String base;
 	private transient HashCode hash;
-	private long hash64;
-	private int hash32;
+	private long hash64bit;
+	private int hash32bit;
 	private final String s;
 
 	/**
@@ -47,8 +47,8 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 */
 	public FasterString(final FasterString string) {
 		s = string.s;
-		hash64 = string.hash64;
-		hash32 = string.hash32;
+		hash64bit = string.hash64bit;
+		hash32bit = string.hash32bit;
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 */
 	private void computeHashes() {
 		hash = HASHF.hashBytes(s.getBytes(CHARSET));
-		hash32 = hash.asInt();
-		hash64 = hash.asLong();
+		hash32bit = hash.asInt();
+		hash64bit = hash.asLong();
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	public boolean equals(final FasterString fs) {
 		return hashCode() == fs.hashCode()
 				&& s.length() == fs.s.length()
-				&& hash64 == fs.hash64
+				&& hash64bit == fs.hash64bit
 				&& hash.equals(fs.hash);
 	}
 
@@ -116,7 +116,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 		if (hash == null) {
 			computeHashes();
 		}
-		return hash64;
+		return hash64bit;
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 		if (hash == null) {
 			computeHashes();
 		}
-		return hash32;
+		return hash32bit;
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 			 * If hash32 is negative, it is necessary to sum 1. This is because
 			 * -Integer.MIN_VALUE is equal to Integer.MIN_VALUE.
 			 */
-			final int h32 = hashCode() > 0 ? hash32 : -(hash32 + 1);
-			final long h64 = hash64 > 0 ? hash64 : -(hash64 + 1);
+			final int h32 = hashCode() > 0 ? hash32bit : -(hash32bit + 1);
+			final long h64 = hash64bit > 0 ? hash64bit : -(hash64bit + 1);
 			base = Integer.toString(h32, Global.ENCODING_BASE) + Long.toString(h64, Global.ENCODING_BASE);
 		}
 		return base;
