@@ -1171,7 +1171,7 @@ public class RTree implements SpatialIndex, Serializable {
 		return mbr;
 	}
 	
-	private class Node implements Serializable {
+	private static class Node implements Serializable {
 		/**
 		 * 
 		 */
