@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="output" path="bin"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/c4e65085e00a033348b5417106b13e2ad2987ffc/guava-14.0-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/67b7be4ee7ba48e4828a42d6d5069761186d4a53/guava-14.0.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/fd32f7eb47870cf0bec1d013d9a2ad8ce9bb6851/guava-14.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/d2a489573c0ed2c4942b3660decad5d65087b406/commons-lang3-3.3.2-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/90a3822c38ec8c996e84c16a3477ef632cbc87a3/commons-lang3-3.3.2.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/43ffe692648166363bceadc63ac76c7d19b4ebd7/commons-lang3-3.3.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.3/4b633be316e46542307aa640dbad4d82db861225/commons-math3-3.3-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.3/a85dc3aa929de625606270ae69a343cda69b7670/commons-math3-3.3.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.3/45e23724043d04c0e4965b4b37fa23f530459c86/commons-math3-3.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/org.danilopianini/javalib/0.0.0/e336986c40967adfa53ab9f6428c544c61e81c8b/javalib-0.0.0-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/org.danilopianini/javalib/0.0.0/129ecbe106a902705b0a21df26fc1024c4965f1c/javalib-0.0.0.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/org.danilopianini/javalib/0.0.0/163629315cf954b1a674746575d18e5d7ae87ec/javalib-0.0.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/941a8be4506c65f0a9001c08812fb7da1e505e21/junit-4.12-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/net.sf.trove4j/trove4j/3.0.3/109c5be93362e6e651e417c51d1863477a22969c/trove4j-3.0.3-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/net.sf.trove4j/trove4j/3.0.3/42ccaf4761f0dfdfa805c9e340d99a755907e2dd/trove4j-3.0.3.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/net.sf.trove4j/trove4j/3.0.3/dc5c824f98a9bf2e20a2ccfff83e71be2040cc7d/trove4j-3.0.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar" exported="true">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/ad09811315f1d4f5756986575b0ea16b99cd686f/hamcrest-core-1.3-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
