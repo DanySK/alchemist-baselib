@@ -8,19 +8,22 @@
  */
 package it.unibo.alchemist.utils;
 
-import static org.danilopianini.lang.Constants.DJB2_MAGIC;
-import static org.danilopianini.lang.Constants.DJB2_SHIFT;
-import static org.danilopianini.lang.Constants.DJB2_START;
 import it.unibo.alchemist.Global;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 /**
  * This class wraps java.lang.String and provides faster equals(). Used
- * internally to ensure better performances. This class guarantees a 100%
- * correct comparison for all the Strings up to 8 characters long.
+ * internally to ensure better performances. The faster comparison is realized
+ * by computing a hash internally (currently using Murmur 3), so be aware that
+ * collisions may happen.
  * 
  * @author Danilo Pianini
  * 
@@ -28,8 +31,11 @@ import java.util.stream.IntStream;
 public class FasterString implements Cloneable, Serializable, Comparable<FasterString>, CharSequence {
 
 	private static final long serialVersionUID = -3490623928660729120L;
+	private static final Charset CHARSET = Charset.forName("UTF8");
+	private static final HashFunction HASHF = Hashing.murmur3_128();
 	private String base;
-	private long hash;
+	private transient HashCode hash;
+	private long hash64;
 	private int hash32;
 	private final String s;
 
@@ -41,7 +47,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 */
 	public FasterString(final FasterString string) {
 		s = string.s;
-		hash = string.hash;
+		hash64 = string.hash64;
 		hash32 = string.hash32;
 	}
 
@@ -76,13 +82,9 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 * djb2.
 	 */
 	private void computeHashes() {
-		hash = DJB2_START;
-		hash32 = DJB2_START;
-		final byte[] bytes = s.getBytes();
-		for (final byte b : bytes) {
-			hash = ((hash << DJB2_SHIFT) + hash) + b;
-			hash32 = hash32 * DJB2_MAGIC ^ b;
-		}
+		hash = HASHF.hashBytes(s.getBytes(CHARSET));
+		hash32 = hash.asInt();
+		hash64 = hash.asLong();
 	}
 
 	/**
@@ -93,7 +95,10 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 * @return true if equals
 	 */
 	public boolean equals(final FasterString fs) {
-		return (hashCode() == fs.hashCode()) && (hash == fs.hash) && (s.length() == fs.s.length());
+		return hashCode() == fs.hashCode()
+				&& s.length() == fs.s.length()
+				&& hash64 == fs.hash64
+				&& hash.equals(fs.hash);
 	}
 
 	@Override
@@ -108,15 +113,15 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 	 * @return a 64bit hash, computed with DJB2
 	 */
 	public long hash64() {
-		if (hash == 0) {
+		if (hash == null) {
 			computeHashes();
 		}
-		return hash;
+		return hash64;
 	}
 
 	@Override
 	public int hashCode() {
-		if (hash32 == 0 && hash == 0) {
+		if (hash == null) {
 			computeHashes();
 		}
 		return hash32;
@@ -132,7 +137,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 			 * -Integer.MIN_VALUE is equal to Integer.MIN_VALUE.
 			 */
 			final int h32 = hashCode() > 0 ? hash32 : -(hash32 + 1);
-			final long h64 = hash > 0 ? hash : -(hash + 1);
+			final long h64 = hash64 > 0 ? hash64 : -(hash64 + 1);
 			base = Integer.toString(h32, Global.ENCODING_BASE) + Long.toString(h64, Global.ENCODING_BASE);
 		}
 		return base;

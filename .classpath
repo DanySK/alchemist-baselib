@@ -6,6 +6,11 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
+	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/c4e65085e00a033348b5417106b13e2ad2987ffc/guava-14.0-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/67b7be4ee7ba48e4828a42d6d5069761186d4a53/guava-14.0.jar" exported="true">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0/fd32f7eb47870cf0bec1d013d9a2ad8ce9bb6851/guava-14.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/d2a489573c0ed2c4942b3660decad5d65087b406/commons-lang3-3.3.2-sources.jar" kind="lib" path="/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/90a3822c38ec8c996e84c16a3477ef632cbc87a3/commons-lang3-3.3.2.jar" exported="true">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/danysk/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/43ffe692648166363bceadc63ac76c7d19b4ebd7/commons-lang3-3.3.2-javadoc.jar!/"/>

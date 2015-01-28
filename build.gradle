@@ -32,6 +32,7 @@ configurations {
 }
 
 dependencies {
+    compile "com.google.guava:guava:$guavaVersion"
     compile "org.apache.commons:commons-lang3:$lang3Version"
     compile "org.apache.commons:commons-math3:$math3Version"
     compile "org.danilopianini:javalib:$javalibVersion"
