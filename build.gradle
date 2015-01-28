@@ -155,6 +155,22 @@ checkstyleTest << {
              out: new File(reports.xml.destination.parent, 'main.html'))
 }
 
+// Check exclusions
+
+def excludePattern = 'it/unibo/alchemist/external/'
+def excludePatternAntStyle = '**/' + excludePattern + '**'
+tasks.withType(FindBugs) {
+    classes = classes.filter {
+        !it.path.contains(excludePattern)
+    }
+}
+tasks.withType(Checkstyle) {
+    exclude excludePatternAntStyle
+}
+tasks.withType(Pmd) {
+    exclude excludePatternAntStyle
+}
+
 // Upload configuration
 
 signArchives.onlyIf { Boolean.parseBoolean(signArchivesIsEnabled) }
