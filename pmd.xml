@@ -213,7 +213,6 @@
 	<rule ref="rulesets/java/unnecessary.xml/UnnecessaryFinalModifier" />
 	<rule ref="rulesets/java/imports.xml/UnnecessaryFullyQualifiedName" />
 	<rule ref="rulesets/java/design.xml/UnnecessaryLocalBeforeReturn" />
-	<rule ref="rulesets/java/controversial.xml/UnnecessaryParentheses" />
 	<rule ref="rulesets/java/unnecessary.xml/UnnecessaryReturn" />
 	<rule ref="rulesets/java/optimizations.xml/UnnecessaryWrapperObjectCreation" />
 	<rule ref="rulesets/java/design.xml/UnsynchronizedStaticDateFormatter" />
