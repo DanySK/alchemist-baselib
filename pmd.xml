@@ -42,7 +42,6 @@
 	<rule ref="rulesets/java/controversial.xml/AvoidUsingNativeCode" />
 	<rule ref="rulesets/java/basic.xml/AvoidUsingOctalValues" />
 	<rule ref="rulesets/java/controversial.xml/AvoidUsingShortType" />
-	<rule ref="rulesets/java/controversial.xml/AvoidUsingVolatile" />
 	<rule ref="rulesets/java/design.xml/BadComparison" />
 	<rule ref="rulesets/java/basic.xml/BigIntegerInstantiation" />
 	<rule ref="rulesets/java/naming.xml/BooleanGetMethodName" />

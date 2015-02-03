@@ -404,10 +404,6 @@
             <ruleset>pmd-eclipse</ruleset>
         </rule>
         <rule>
-            <name>MissingBreakInSwitch</name>
-            <ruleset>pmd-eclipse</ruleset>
-        </rule>
-        <rule>
             <name>MissingStaticMethodInNonInstantiatableClass</name>
             <ruleset>pmd-eclipse</ruleset>
         </rule>
