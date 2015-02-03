@@ -144,7 +144,6 @@
 	<rule ref="rulesets/java/naming.xml/MethodWithSameNameAsEnclosingClass" />
 	<rule ref="rulesets/java/naming.xml/MisleadingVariableName" />
 	<rule ref="rulesets/java/basic.xml/MisplacedNullCheck" />
-	<rule ref="rulesets/java/design.xml/MissingBreakInSwitch" />
 	<rule ref="rulesets/java/javabeans.xml/MissingSerialVersionUID" />
 	<rule ref="rulesets/java/design.xml/MissingStaticMethodInNonInstantiatableClass" />
 	<rule ref="rulesets/xml/basic.xml/MistypedCDATASection" />
