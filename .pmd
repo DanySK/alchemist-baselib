@@ -264,10 +264,6 @@
             <ruleset>pmd-eclipse</ruleset>
         </rule>
         <rule>
-            <name>AvoidPrefixingMethodParameters</name>
-            <ruleset>pmd-eclipse</ruleset>
-        </rule>
-        <rule>
             <name>AvoidUsingNativeCode</name>
             <ruleset>pmd-eclipse</ruleset>
         </rule>
@@ -305,10 +301,6 @@
         </rule>
         <rule>
             <name>UnnecessaryConstructor</name>
-            <ruleset>pmd-eclipse</ruleset>
-        </rule>
-        <rule>
-            <name>UnnecessaryParentheses</name>
             <ruleset>pmd-eclipse</ruleset>
         </rule>
         <rule>
@@ -1005,10 +997,6 @@
         </rule>
         <rule>
             <name>UnnecessaryFinalModifier</name>
-            <ruleset>pmd-eclipse</ruleset>
-        </rule>
-        <rule>
-            <name>UnnecessaryParentheses</name>
             <ruleset>pmd-eclipse</ruleset>
         </rule>
         <rule>
