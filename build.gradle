@@ -124,6 +124,7 @@ tasks.withType(FindBugs) {
 
 pmd {
 	ignoreFailures = true
+	ruleSets = []
 	ruleSetFiles = files("pmd.xml")
 	targetJdk = pmdTargetJdk
 	toolVersion = pmdVersion
