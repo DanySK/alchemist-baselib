@@ -199,8 +199,8 @@ uploadArchives {
 	            developers {
 	            	developer {
 	            		name 'Danilo Pianini'
-	            		email 'danilo.pianini@gmail.com'
-	            		url 'http://www.danilopianini.org'
+	            		email 'danilo.pianini@unibo.it'
+	            		url 'http://danilopianini.apice.unibo.it/'
 	            	}
 	            }
 	            scm {
