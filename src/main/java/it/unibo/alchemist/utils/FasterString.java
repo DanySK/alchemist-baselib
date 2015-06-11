@@ -12,6 +12,7 @@ import it.unibo.alchemist.Global;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -31,7 +32,7 @@ import com.google.common.hash.Hashing;
 public class FasterString implements Cloneable, Serializable, Comparable<FasterString>, CharSequence {
 
 	private static final long serialVersionUID = -3490623928660729120L;
-	private static final Charset CHARSET = Charset.forName("UTF8");
+	private static final Charset CHARSET = StandardCharsets.UTF_8;
 	private static final HashFunction HASHF = Hashing.murmur3_128();
 	private String base;
 	private transient HashCode hash;
@@ -78,9 +79,6 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 		return s.compareTo(o.s);
 	}
 
-	/**
-	 * djb2.
-	 */
 	private void computeHashes() {
 		hash = HASHF.hashBytes(s.getBytes(CHARSET));
 		hash32bit = hash.asInt();
