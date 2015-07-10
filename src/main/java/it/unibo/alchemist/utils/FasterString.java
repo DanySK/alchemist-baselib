@@ -101,10 +101,7 @@ public class FasterString implements Cloneable, Serializable, Comparable<FasterS
 
 	@Override
 	public boolean equals(final Object o) {
-		if (o instanceof FasterString) {
-			return equals((FasterString) o);
-		}
-		return false;
+		return o instanceof FasterString && equals((FasterString) o);
 	}
 
 	/**
