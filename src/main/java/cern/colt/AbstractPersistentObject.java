@@ -27,7 +27,7 @@ public abstract class AbstractPersistentObject implements Serializable, Cloneabl
 	/**
 	 * 
 	 */
-	public static final long serialVersionUID = 1020L;
+	private static final long serialVersionUID = 1020L;
 
 	/**
 	 * Not yet commented.
