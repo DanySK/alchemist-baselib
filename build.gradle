@@ -8,6 +8,9 @@ apply plugin: 'maven'
 apply plugin: 'build-dashboard'
 apply plugin: 'signing'
 
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
 task wrapper(type: Wrapper) {
     gradleVersion = gradleVersionToUse
 }
@@ -61,7 +64,9 @@ task aggregateJavadoc(type: Javadoc) {
     failOnError = false
     options.showAll()
     options.addBooleanOption('nopackagediagram', true)
-	options.addStringOption('Xdoclint:none', '-quiet')
+	if (JavaVersion.current().isJava8Compatible()) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
     configure(options) {
         windowTitle "$projectLongName version $project.version Javadoc API"
         docTitle "$projectLongName $project.version reference API"
@@ -105,6 +110,9 @@ eclipse {
 // FindBugs configuration
 
 findbugs {
+	if (JavaVersion.current().isJava6()) {
+		toolVersion = "2.0.3"
+	}
 	ignoreFailures = true
 	effort = "max"
 	reportLevel = "low"
