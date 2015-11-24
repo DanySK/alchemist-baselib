@@ -67,113 +67,111 @@ import it.unibo.alchemist.external.cern.jet.random.engine.RandomEngine;
  * @see it.unibo.alchemist.external.cern.jet.random.engine
  * @see cern.jet.random.engine.Benchmark
  * @see cern.jet.random.Benchmark
- * @author wolfgang.hoschek@cern.ch
- * @version 1.0, 09/24/99
  */
 public abstract class AbstractDistribution extends cern.colt.AbstractPersistentObject
-		implements cern.colt.function.DoubleFunction,
-		cern.colt.function.IntFunction {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5226193316569798444L;
-	/**
-	 * 
-	 */
-	private RandomEngine randomGenerator;
+        implements cern.colt.function.DoubleFunction,
+        cern.colt.function.IntFunction {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5226193316569798444L;
+    /**
+     * 
+     */
+    private RandomEngine randomGenerator;
 
-	/**
-	 * Makes this class non instantiable, but still let's others inherit from
-	 * it.
-	 */
-	protected AbstractDistribution() {
-		super();
-	}
+    /**
+     * Makes this class non instantiable, but still let's others inherit from
+     * it.
+     */
+    protected AbstractDistribution() {
+        super();
+    }
 
-	/**
-	 * Equivalent to <tt>nextDouble()</tt>. This has the effect that
-	 * distributions can now be used as function objects, returning a random
-	 * number upon function evaluation.
-	 * 
-	 * @param dummy
-	 *            see parent
-	 * @return see parent
-	 */
-	@Override
-	public double apply(final double dummy) {
-		return nextDouble();
-	}
+    /**
+     * Equivalent to <tt>nextDouble()</tt>. This has the effect that
+     * distributions can now be used as function objects, returning a random
+     * number upon function evaluation.
+     * 
+     * @param dummy
+     *            see parent
+     * @return see parent
+     */
+    @Override
+    public double apply(final double dummy) {
+        return nextDouble();
+    }
 
-	/**
-	 * Equivalent to <tt>nextInt()</tt>. This has the effect that distributions
-	 * can now be used as function objects, returning a random number upon
-	 * function evaluation.
-	 * 
-	 * @param dummy
-	 *            see parent
-	 * @return see parent
-	 */
-	@Override
-	public int apply(final int dummy) {
-		return nextInt();
-	}
+    /**
+     * Equivalent to <tt>nextInt()</tt>. This has the effect that distributions
+     * can now be used as function objects, returning a random number upon
+     * function evaluation.
+     * 
+     * @param dummy
+     *            see parent
+     * @return see parent
+     */
+    @Override
+    public int apply(final int dummy) {
+        return nextInt();
+    }
 
-	/**
-	 * Returns a deep copy of the receiver; the copy will produce identical
-	 * sequences. After this call has returned, the copy and the receiver have
-	 * equal but separate state.
-	 * 
-	 * @return a copy of the receiver.
-	 */
-	public AbstractDistribution clone() {
-		final AbstractDistribution copy = (AbstractDistribution) super.clone();
-		if (this.randomGenerator != null) {
-			copy.randomGenerator = (RandomEngine) this.randomGenerator.clone();
-		}
-		return copy;
-	}
+    /**
+     * Returns a deep copy of the receiver; the copy will produce identical
+     * sequences. After this call has returned, the copy and the receiver have
+     * equal but separate state.
+     * 
+     * @return a copy of the receiver.
+     */
+    public AbstractDistribution clone() {
+        final AbstractDistribution copy = (AbstractDistribution) super.clone();
+        if (this.randomGenerator != null) {
+            copy.randomGenerator = (RandomEngine) this.randomGenerator.clone();
+        }
+        return copy;
+    }
 
-	/**
-	 * Returns the used uniform random number generator.
-	 * 
-	 * @return the random generator
-	 */
-	protected RandomEngine getRandomGenerator() {
-		return randomGenerator;
-	}
+    /**
+     * Returns the used uniform random number generator.
+     * 
+     * @return the random generator
+     */
+    protected RandomEngine getRandomGenerator() {
+        return randomGenerator;
+    }
 
-	/**
-	 * Constructs and returns a new uniform random number generation engine
-	 * seeded with the current time. Currently this is
-	 * {@link it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister}.
-	 * 
-	 * @return ask CERN staff :)
-	 */
-	public static RandomEngine makeDefaultGenerator() {
-		return AbstractRandomEngine.makeDefault();
-	}
+    /**
+     * Constructs and returns a new uniform random number generation engine
+     * seeded with the current time. Currently this is
+     * {@link it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister}.
+     * 
+     * @return ask CERN staff :)
+     */
+    public static RandomEngine makeDefaultGenerator() {
+        return AbstractRandomEngine.makeDefault();
+    }
 
-	/**
-	 * @return a random number from the distribution.
-	 */
-	public abstract double nextDouble();
+    /**
+     * @return a random number from the distribution.
+     */
+    public abstract double nextDouble();
 
-	/**
-	 * @return a random number from the distribution; returns
-	 *         <tt>(int) Math.round(nextDouble())</tt>. Override this method if
-	 *         necessary.
-	 */
-	public int nextInt() {
-		return (int) Math.round(nextDouble());
-	}
+    /**
+     * @return a random number from the distribution; returns
+     *         <tt>(int) Math.round(nextDouble())</tt>. Override this method if
+     *         necessary.
+     */
+    public int nextInt() {
+        return (int) Math.round(nextDouble());
+    }
 
-	/**
-	 * Sets the uniform random generator internally used.
-	 * 
-	 * @param rng
-	 *            the random generator
-	 */
-	protected void setRandomGenerator(final RandomEngine rng) {
-		this.randomGenerator = rng;
-	}
+    /**
+     * Sets the uniform random generator internally used.
+     * 
+     * @param rng
+     *            the random generator
+     */
+    protected void setRandomGenerator(final RandomEngine rng) {
+        this.randomGenerator = rng;
+    }
 }

@@ -45,88 +45,88 @@ import java.io.Serializable;
  * </p>
  */
 public class SortedList implements Serializable {
-	private static final long serialVersionUID = -1549539544212731131L;
+    private static final long serialVersionUID = -1549539544212731131L;
 
-	private static final int DEFAULT_PREFERRED_MAXIMUM_SIZE = 10;
+    private static final int DEFAULT_PREFERRED_MAXIMUM_SIZE = 10;
 
-	private int preferredMaximumSize = 1;
-	private final TIntArrayList ids;
-	private final TDoubleArrayList priorities;
+    private int preferredMaximumSize = 1;
+    private final TIntArrayList ids;
+    private final TDoubleArrayList priorities;
 
-	public void init(final int preferredMaximumSize) {
-		this.preferredMaximumSize = preferredMaximumSize;
-		ids.clear(preferredMaximumSize);
-		priorities.clear(preferredMaximumSize);
-	}
+    public void init(final int preferredMaximumSize) {
+        this.preferredMaximumSize = preferredMaximumSize;
+        ids.clear(preferredMaximumSize);
+        priorities.clear(preferredMaximumSize);
+    }
 
-	public void reset() {
-		ids.reset();
-		priorities.reset();
-	}
+    public void reset() {
+        ids.reset();
+        priorities.reset();
+    }
 
-	public SortedList() {
-		ids = new TIntArrayList(DEFAULT_PREFERRED_MAXIMUM_SIZE);
-		priorities = new TDoubleArrayList(DEFAULT_PREFERRED_MAXIMUM_SIZE);
-	}
+    public SortedList() {
+        ids = new TIntArrayList(DEFAULT_PREFERRED_MAXIMUM_SIZE);
+        priorities = new TDoubleArrayList(DEFAULT_PREFERRED_MAXIMUM_SIZE);
+    }
 
-	public void add(final int id, final double priority) {
-		double lowestPriority = Float.NEGATIVE_INFINITY;
+    public void add(final int id, final double priority) {
+        double lowestPriority = Float.NEGATIVE_INFINITY;
 
-		if (priorities.size() > 0) {
-			lowestPriority = priorities.get(priorities.size() - 1);
-		}
+        if (priorities.size() > 0) {
+            lowestPriority = priorities.get(priorities.size() - 1);
+        }
 
-		if ((priority == lowestPriority) || (priority < lowestPriority && ids.size() < preferredMaximumSize)) {
-			// simply add the new entry at the lowest priority end
-			ids.add(id);
-			priorities.add(priority);
-		} else if (priority > lowestPriority) {
-			if (ids.size() >= preferredMaximumSize) {
-				int lowestPriorityIndex = ids.size() - 1;
-				while ((lowestPriorityIndex - 1 >= 0) && (priorities.get(lowestPriorityIndex - 1) == lowestPriority)) {
-					lowestPriorityIndex--;
-				}
+        if ((priority == lowestPriority) || (priority < lowestPriority && ids.size() < preferredMaximumSize)) {
+            // simply add the new entry at the lowest priority end
+            ids.add(id);
+            priorities.add(priority);
+        } else if (priority > lowestPriority) {
+            if (ids.size() >= preferredMaximumSize) {
+                int lowestPriorityIndex = ids.size() - 1;
+                while ((lowestPriorityIndex - 1 >= 0) && (priorities.get(lowestPriorityIndex - 1) == lowestPriority)) {
+                    lowestPriorityIndex--;
+                }
 
-				if (lowestPriorityIndex >= preferredMaximumSize - 1) {
-					ids.remove(lowestPriorityIndex, ids.size() - lowestPriorityIndex);
-					priorities.remove(lowestPriorityIndex, priorities.size() - lowestPriorityIndex);
-				}
-			}
+                if (lowestPriorityIndex >= preferredMaximumSize - 1) {
+                    ids.remove(lowestPriorityIndex, ids.size() - lowestPriorityIndex);
+                    priorities.remove(lowestPriorityIndex, priorities.size() - lowestPriorityIndex);
+                }
+            }
 
-			// put the new entry in the correct position. Could do a binary
-			// search here if the
-			// preferredMaximumSize was large.
-			int insertPosition = ids.size();
-			while (insertPosition - 1 >= 0 && priority > priorities.get(insertPosition - 1)) {
-				insertPosition--;
-			}
+            // put the new entry in the correct position. Could do a binary
+            // search here if the
+            // preferredMaximumSize was large.
+            int insertPosition = ids.size();
+            while (insertPosition - 1 >= 0 && priority > priorities.get(insertPosition - 1)) {
+                insertPosition--;
+            }
 
-			ids.insert(insertPosition, id);
-			priorities.insert(insertPosition, priority);
-		}
-	}
+            ids.insert(insertPosition, id);
+            priorities.insert(insertPosition, priority);
+        }
+    }
 
-	/**
-	 * return the lowest priority currently stored, or float.NEGATIVE_INFINITY
-	 * if no entries are stored
-	 */
-	public double getLowestPriority() {
-		double lowestPriority = Float.NEGATIVE_INFINITY;
-		if (priorities.size() >= preferredMaximumSize) {
-			lowestPriority = priorities.get(priorities.size() - 1);
-		}
-		return lowestPriority;
-	}
+    /**
+     * return the lowest priority currently stored, or float.NEGATIVE_INFINITY
+     * if no entries are stored
+     */
+    public double getLowestPriority() {
+        double lowestPriority = Float.NEGATIVE_INFINITY;
+        if (priorities.size() >= preferredMaximumSize) {
+            lowestPriority = priorities.get(priorities.size() - 1);
+        }
+        return lowestPriority;
+    }
 
-	public void forEachId(final TIntProcedure v) {
-		for (int i = 0; i < ids.size(); i++) {
-			if (!v.execute(ids.get(i))) {
-				break;
-			}
-		}
-	}
+    public void forEachId(final TIntProcedure v) {
+        for (int i = 0; i < ids.size(); i++) {
+            if (!v.execute(ids.get(i))) {
+                break;
+            }
+        }
+    }
 
-	public int[] toNativeArray() {
-		return ids.toArray();
-	}
+    public int[] toNativeArray() {
+        return ids.toArray();
+    }
 }

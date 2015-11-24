@@ -30,139 +30,136 @@ import it.unibo.alchemist.external.cern.jet.random.engine.RandomEngine;
  * synchronized.
  * <p>
  * 
- * @author wolfgang.hoschek@cern.ch
- * @author Danilo Pianini
- * @version 20101225
  */
 public class Exponential extends AbstractContinousDistribution {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7264179718362128152L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7264179718362128152L;
 
-	/**
-	 * 
-	 */
-	private double lambda;
+    /**
+     * 
+     */
+    private double lambda;
 
-	/**
-	 * The uniform random number generated shared by all <b>static</b> methods.
-	 */
-	private static Exponential shared = new Exponential(1.0,
-			makeDefaultGenerator());
+    /**
+     * The uniform random number generated shared by all <b>static</b> methods.
+     */
+    private static Exponential shared = new Exponential(1.0,
+            makeDefaultGenerator());
 
-	/**
-	 * Constructs a Negative Exponential distribution.
-	 * 
-	 * @param l
-	 *            lambda
-	 * @param randomGenerator
-	 *            randomGenerator
-	 */
-	public Exponential(final double l, final RandomEngine randomGenerator) {
-		this(randomGenerator);
-		setState(l);
-	}
+    /**
+     * Constructs a Negative Exponential distribution.
+     * 
+     * @param l
+     *            lambda
+     * @param randomGenerator
+     *            randomGenerator
+     */
+    public Exponential(final double l, final RandomEngine randomGenerator) {
+        this(randomGenerator);
+        setState(l);
+    }
 
-	/**
-	 * Builds a new Negative Exponential distribution with lambda = 0.
-	 * 
-	 * @param randomGenerator
-	 *            The random engine to use for random generation
-	 */
-	public Exponential(final RandomEngine randomGenerator) {
-		super();
-		setRandomGenerator(randomGenerator);
-	}
+    /**
+     * Builds a new Negative Exponential distribution with lambda = 0.
+     * 
+     * @param randomGenerator
+     *            The random engine to use for random generation
+     */
+    public Exponential(final RandomEngine randomGenerator) {
+        super();
+        setRandomGenerator(randomGenerator);
+    }
 
-	/**
-	 * Returns the cumulative distribution function.
-	 * 
-	 * @param x
-	 *            x
-	 * @return the result
-	 */
-	public double cdf(final double x) {
-		if (x <= 0.0) {
-			return 0.0;
-		}
-		return 1.0 - Math.exp(-x * lambda);
-	}
+    /**
+     * Returns the cumulative distribution function.
+     * 
+     * @param x
+     *            x
+     * @return the result
+     */
+    public double cdf(final double x) {
+        if (x <= 0.0) {
+            return 0.0;
+        }
+        return 1.0 - Math.exp(-x * lambda);
+    }
 
-	/**
-	 * Returns a random number from the distribution.
-	 * @return the result
-	 */
-	public double nextDouble() {
-		return nextDouble(lambda);
-	}
+    /**
+     * Returns a random number from the distribution.
+     * @return the result
+     */
+    public double nextDouble() {
+        return nextDouble(lambda);
+    }
 
-	/**
-	 * Returns a random number from the distribution; bypasses the internal
-	 * state.
-	 * @param l
-	 *            lambda
-	 * @return the result
-	 */
-	public double nextDouble(final double l) {
-		return -FastMath.log1p(-getRandomGenerator().nextDouble()) / l;
-	}
+    /**
+     * Returns a random number from the distribution; bypasses the internal
+     * state.
+     * @param l
+     *            lambda
+     * @return the result
+     */
+    public double nextDouble(final double l) {
+        return -FastMath.log1p(-getRandomGenerator().nextDouble()) / l;
+    }
 
-	/**
-	 * Returns the probability distribution function.
-	 * @param x
-	 *            x
-	 * @return the result
-	 */
-	public double pdf(final double x) {
-		if (x < 0.0) {
-			return 0.0;
-		}
-		return lambda * Math.exp(-x * lambda);
-	}
+    /**
+     * Returns the probability distribution function.
+     * @param x
+     *            x
+     * @return the result
+     */
+    public double pdf(final double x) {
+        if (x < 0.0) {
+            return 0.0;
+        }
+        return lambda * Math.exp(-x * lambda);
+    }
 
-	/**
-	 * @param l
-	 *            lambda
-	 * Sets the mean.
-	 */
-	public final void setState(final double l) {
-		this.lambda = l;
-	}
+    /**
+     * @param l
+     *            lambda
+     * Sets the mean.
+     */
+    public final void setState(final double l) {
+        this.lambda = l;
+    }
 
-	/**
-	 * Returns a random number from the distribution with the given lambda.
-	 * 
-	 * @param lambda
-	 *            lambda
-	 * @return next double
-	 */
-	public static double staticNextDouble(final double lambda) {
-		synchronized (shared) {
-			return shared.nextDouble(lambda);
-		}
-	}
+    /**
+     * Returns a random number from the distribution with the given lambda.
+     * 
+     * @param lambda
+     *            lambda
+     * @return next double
+     */
+    public static double staticNextDouble(final double lambda) {
+        synchronized (shared) {
+            return shared.nextDouble(lambda);
+        }
+    }
 
-	/**
-	 * Returns a String representation of the receiver.
-	 * @return the result
-	 */
-	public String toString() {
-		return this.getClass().getName() + "(" + lambda + ")";
-	}
+    /**
+     * Returns a String representation of the receiver.
+     * @return the result
+     */
+    public String toString() {
+        return this.getClass().getName() + "(" + lambda + ")";
+    }
 
-	/**
-	 * Sets the uniform random number generated shared by all <b>static</b>
-	 * methods.
-	 * 
-	 * @param randomGenerator
-	 *            the new uniform random number generator to be shared.
-	 */
-	@SuppressWarnings("unused")
-	private static void xstaticSetRandomGenerator(
-			final RandomEngine randomGenerator) {
-		synchronized (shared) {
-			shared.setRandomGenerator(randomGenerator);
-		}
-	}
+    /**
+     * Sets the uniform random number generated shared by all <b>static</b>
+     * methods.
+     * 
+     * @param randomGenerator
+     *            the new uniform random number generator to be shared.
+     */
+    @SuppressWarnings("unused")
+    private static void xstaticSetRandomGenerator(
+            final RandomEngine randomGenerator) {
+        synchronized (shared) {
+            shared.setRandomGenerator(randomGenerator);
+        }
+    }
 }

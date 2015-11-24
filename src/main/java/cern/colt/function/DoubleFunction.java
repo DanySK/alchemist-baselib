@@ -14,12 +14,12 @@ package cern.colt.function;
  * argument and returns a single value.
  */
 public interface DoubleFunction {
-	/**
-	 * Applies a function to an argument.
-	 *
-	 * @param argument
-	 *            argument passed to the function.
-	 * @return the result of the function.
-	 */
-	double apply(double argument);
+    /**
+     * Applies a function to an argument.
+     *
+     * @param argument
+     *            argument passed to the function.
+     * @return the result of the function.
+     */
+    double apply(double argument);
 }

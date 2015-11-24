@@ -33,133 +33,123 @@ package it.unibo.alchemist.external.cern.jet.random.engine;
  * <p>
  * Note that this implementation is <b>not synchronized</b>.
  * 
- * @author wolfgang.hoschek@cern.ch
- * @author Danilo Pianini
- * @version 20110104
  * @see MersenneTwister
  * @see MersenneTwister64
  * @see java.util.Random
  */
 // CHECKSTYLE:OFF
 public abstract class AbstractRandomEngine extends cern.colt.AbstractPersistentObject implements RandomEngine {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1305884440694600782L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1305884440694600782L;
 
-	/**
-	 * Makes this class non instantiable, but still let's others inherit from
-	 * it.
-	 */
-	protected AbstractRandomEngine() {
-		super();
-	}
+    /**
+     * Makes this class non instantiable, but still let's others inherit from
+     * it.
+     */
+    protected AbstractRandomEngine() {
+        super();
+    }
 
-	/**
-	 * Equivalent to <tt>raw()</tt>. This has the effect that random engines can
-	 * now be used as function objects, returning a random number upon function
-	 * evaluation.
-	 */
-	public double apply(final double dummy) {
-		return raw();
-	}
+    /**
+     * Equivalent to <tt>raw()</tt>. This has the effect that random engines can
+     * now be used as function objects, returning a random number upon function
+     * evaluation.
+     */
+    public double apply(final double dummy) {
+        return raw();
+    }
 
-	/**
-	 * Equivalent to <tt>nextInt()</tt>. This has the effect that random engines
-	 * can now be used as function objects, returning a random number upon
-	 * function evaluation.
-	 */
-	public int apply(final int dummy) {
-		return nextInt();
-	}
+    /**
+     * Equivalent to <tt>nextInt()</tt>. This has the effect that random engines
+     * can now be used as function objects, returning a random number upon
+     * function evaluation.
+     */
+    public int apply(final int dummy) {
+        return nextInt();
+    }
 
-	/**
-	 * Constructs and returns a new uniform random number engine seeded with the
-	 * current time. Currently this is
-	 * {@link it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister}
-	 * .
-	 */
-	public static AbstractRandomEngine makeDefault() {
-		return new it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister((int) System.currentTimeMillis());
-	}
+    /**
+     * Constructs and returns a new uniform random number engine seeded with the
+     * current time. Currently this is
+     * {@link it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister}
+     * .
+     */
+    public static AbstractRandomEngine makeDefault() {
+        return new it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister((int) System.currentTimeMillis());
+    }
 
-	/**
-	 * Returns a 64 bit uniformly distributed random number in the open unit
-	 * interval <code>(0.0,1.0)</code> (excluding 0.0 and 1.0).
-	 */
-	public double nextDouble() {
-		double nextDouble;
+    /**
+     * Returns a 64 bit uniformly distributed random number in the open unit
+     * interval <code>(0.0,1.0)</code> (excluding 0.0 and 1.0).
+     */
+    public double nextDouble() {
+        double nextDouble;
 
-		do {
-			nextDouble = ((double) nextLong() - -9.223372036854776E18) * 5.421010862427522E-20;
-		}
-		// catch loss of precision of long --> double conversion
-		while (!(nextDouble > 0.0 && nextDouble < 1.0));
+        do {
+            nextDouble = ((double) nextLong() - -9.223372036854776E18) * 5.421010862427522E-20;
+        }
+        // catch loss of precision of long --> double conversion
+        while (!(nextDouble > 0.0 && nextDouble < 1.0));
 
-		// --> in (0.0,1.0)
-		return nextDouble;
-	}
+        // --> in (0.0,1.0)
+        return nextDouble;
+    }
 
-	/**
-	 * Returns a 32 bit uniformly distributed random number in the open unit
-	 * interval <code>(0.0f,1.0f)</code> (excluding 0.0f and 1.0f).
-	 */
-	public float nextFloat() {
-		// catch loss of precision of double --> float conversion
-		float nextFloat;
-		do {
-			nextFloat = (float) raw();
-		} while (nextFloat >= 1.0f);
+    /**
+     * Returns a 32 bit uniformly distributed random number in the open unit
+     * interval <code>(0.0f,1.0f)</code> (excluding 0.0f and 1.0f).
+     */
+    public float nextFloat() {
+        // catch loss of precision of double --> float conversion
+        float nextFloat;
+        do {
+            nextFloat = (float) raw();
+        } while (nextFloat >= 1.0f);
 
-		// --> in (0.0f,1.0f)
-		return nextFloat;
-	}
+        // --> in (0.0f,1.0f)
+        return nextFloat;
+    }
 
-	/**
-	 * Returns a 32 bit uniformly distributed random number in the closed
-	 * interval <tt>[Integer.MIN_VALUE,Integer.MAX_VALUE]</tt> (including
-	 * <tt>Integer.MIN_VALUE</tt> and <tt>Integer.MAX_VALUE</tt>);
-	 */
-	public abstract int nextInt();
+    /**
+     * Returns a 64 bit uniformly distributed random number in the closed
+     * interval <tt>[Long.MIN_VALUE,Long.MAX_VALUE]</tt> (including
+     * <tt>Long.MIN_VALUE</tt> and <tt>Long.MAX_VALUE</tt>).
+     */
+    public long nextLong() {
+        // concatenate two 32-bit strings into one 64-bit string
+        return ((nextInt() & 0xFFFFFFFFL) << 32) | ((nextInt() & 0xFFFFFFFFL));
+    }
 
-	/**
-	 * Returns a 64 bit uniformly distributed random number in the closed
-	 * interval <tt>[Long.MIN_VALUE,Long.MAX_VALUE]</tt> (including
-	 * <tt>Long.MIN_VALUE</tt> and <tt>Long.MAX_VALUE</tt>).
-	 */
-	public long nextLong() {
-		// concatenate two 32-bit strings into one 64-bit string
-		return ((nextInt() & 0xFFFFFFFFL) << 32) | ((nextInt() & 0xFFFFFFFFL));
-	}
+    /**
+     * Returns a 32 bit uniformly distributed random number in the open unit
+     * interval <code>(0.0,1.0)</code> (excluding 0.0 and 1.0).
+     */
+    public double raw() {
+        int nextInt;
+        do { // accept anything but zero
+            nextInt = nextInt(); // in
+                                    // [Integer.MIN_VALUE,Integer.MAX_VALUE]-interval
+        } while (nextInt == 0);
 
-	/**
-	 * Returns a 32 bit uniformly distributed random number in the open unit
-	 * interval <code>(0.0,1.0)</code> (excluding 0.0 and 1.0).
-	 */
-	public double raw() {
-		int nextInt;
-		do { // accept anything but zero
-			nextInt = nextInt(); // in
-									// [Integer.MIN_VALUE,Integer.MAX_VALUE]-interval
-		} while (nextInt == 0);
+        // transform to (0.0,1.0)-interval
+        // 2.3283064365386963E-10 == 1.0 / Math.pow(2,32)
+        return (double) (nextInt & 0xFFFFFFFFL) * 2.3283064365386963E-10;
 
-		// transform to (0.0,1.0)-interval
-		// 2.3283064365386963E-10 == 1.0 / Math.pow(2,32)
-		return (double) (nextInt & 0xFFFFFFFFL) * 2.3283064365386963E-10;
-
-		/*
-		 * nextInt == Integer.MAX_VALUE --> 0.49999999976716936 nextInt ==
-		 * Integer.MIN_VALUE --> 0.5 nextInt == Integer.MAX_VALUE-1 -->
-		 * 0.4999999995343387 nextInt == Integer.MIN_VALUE+1 -->
-		 * 0.5000000002328306 nextInt == 1 --> 2.3283064365386963E-10 nextInt ==
-		 * -1 --> 0.9999999997671694 nextInt == 2 --> 4.6566128730773926E-10
-		 * nextInt == -2 --> 0.9999999995343387
-		 */
-	}
-	
-	@Override
-	public AbstractRandomEngine clone() {
-		return (AbstractRandomEngine) super.clone();
-	}
+        /*
+         * nextInt == Integer.MAX_VALUE --> 0.49999999976716936 nextInt ==
+         * Integer.MIN_VALUE --> 0.5 nextInt == Integer.MAX_VALUE-1 -->
+         * 0.4999999995343387 nextInt == Integer.MIN_VALUE+1 -->
+         * 0.5000000002328306 nextInt == 1 --> 2.3283064365386963E-10 nextInt ==
+         * -1 --> 0.9999999997671694 nextInt == 2 --> 4.6566128730773926E-10
+         * nextInt == -2 --> 0.9999999995343387
+         */
+    }
+    
+    @Override
+    public AbstractRandomEngine clone() {
+        return (AbstractRandomEngine) super.clone();
+    }
 
 }
