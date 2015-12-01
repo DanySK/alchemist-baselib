@@ -20,7 +20,10 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
+ * @deprecated Use SLF4J instead.
+ * 
  */
+@Deprecated
 public final class L {
 
     private static boolean gui;
@@ -40,6 +43,7 @@ public final class L {
      * @param h
      *            the handler to attach
      */
+    @Deprecated
     public static void addHandler(final Handler h) {
         h.setLevel(Level.ALL);
         LOGGER.addHandler(h);
@@ -49,6 +53,7 @@ public final class L {
      * @param h
      *            the handler to detach
      */
+    @Deprecated
     public static void removeHandler(final Handler h) {
         LOGGER.removeHandler(h);
     }
@@ -57,6 +62,7 @@ public final class L {
      * @param s
      *            the String to log
      */
+    @Deprecated
     public static void debug(final String s) {
         log(Level.FINEST, s);
     }
@@ -65,6 +71,7 @@ public final class L {
      * @param s
      *            the String to log
      */
+    @Deprecated
     public static void error(final String s) {
         log(Level.SEVERE, s);
     }
@@ -77,6 +84,7 @@ public final class L {
      * @param e
      *            the Throwable to get and print the stacktrace
      */
+    @Deprecated
     public static void error(final String s, final Throwable e) {
         error(s + "\n" + ExceptionUtils.getStackTrace(e));
     }
@@ -85,6 +93,7 @@ public final class L {
      * @param e
      *            the Throwable to get and print the stacktrace
      */
+    @Deprecated
     public static void error(final Throwable e) {
         log(Level.SEVERE, ExceptionUtils.getStackTrace(e));
     }
@@ -100,6 +109,7 @@ public final class L {
     /**
      * @return the current Handlers, within an array
      */
+    @Deprecated
     public static Handler[] getHandlers() {
         return LOGGER.getHandlers();
     }
@@ -107,6 +117,7 @@ public final class L {
     /**
      * @return the current logging level
      */
+    @Deprecated
     public static Level getLevel() {
         return LOGGER.getLevel();
     }
@@ -115,6 +126,7 @@ public final class L {
      * @param s
      *            the String to log
      */
+    @Deprecated
     public static void log(final String s) {
         log(Level.INFO, s);
     }
@@ -123,6 +135,7 @@ public final class L {
      * @param enabled
      *            true if you want a message to pop up in case of errors
      */
+    @Deprecated
     public static void setGUIEnabled(final boolean enabled) {
         gui = enabled;
     }
@@ -131,6 +144,7 @@ public final class L {
      * @param l
      *            the logging level
      */
+    @Deprecated
     public static void setLoggingLevel(final Level l) {
         LOGGER.setLevel(l);
     }
@@ -139,6 +153,7 @@ public final class L {
      * @param s
      *            the String to log
      */
+    @Deprecated
     public static void warn(final String s) {
         log(Level.WARNING, s);
     }
@@ -147,6 +162,7 @@ public final class L {
      * @param e
      *            the Throwable to get and print the stacktrace
      */
+    @Deprecated
     public static void warn(final Throwable e) {
         log(Level.WARNING, ExceptionUtils.getStackTrace(e));
     }
