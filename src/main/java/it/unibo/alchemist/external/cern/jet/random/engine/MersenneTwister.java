@@ -39,8 +39,8 @@ import java.util.concurrent.Semaphore;
  * <pre>
  * double sum = 0.0;
  * for (int i = 0; i &lt; 100000; ++i) {
- * 	RandomElement twister = new MersenneTwister(new java.util.Date());
- * 	sum += twister.raw();
+ *     RandomElement twister = new MersenneTwister(new java.util.Date());
+ *     sum += twister.raw();
  * }
  * </pre>
  * 
@@ -50,7 +50,7 @@ import java.util.concurrent.Semaphore;
  * double sum = 0.0;
  * RandomElement twister = new MersenneTwister(new java.util.Date());
  * for (int i = 0; i &lt; 100000; ++i) {
- * 	sum += twister.raw();
+ *     sum += twister.raw();
  * }
  * </pre>
  * 
@@ -144,211 +144,211 @@ import java.util.concurrent.Semaphore;
  * @see java.util.Random
  */
 public class MersenneTwister extends AbstractRandomEngine {
-	/**
-	 * 
-	 */
-	public static final int DEFAULT_SEED = 4357;
-	private static final int LOWER_MASK = 0x7fffffff; /* least significant r bits */
-	private static final int M = 397;
-	private static final int MAG0 = 0x0;
-	private static final int MATRIX_A = 0x9908b0df; /* constant vector a */
-	private static final int MAG1 = MATRIX_A;
-	// private static final int[] mag01=new int[] {0x0, MATRIX_A};
-	/* mag01[x] = x * MATRIX_A for x=0,1 */
-	private static final int N = 624;
-	private static final long serialVersionUID = -3924937606119729891L;
-	private static final int TEMPERING_MASK_B = 0x9d2c5680;
-	private static final int TEMPERING_MASK_C = 0xefc60000;
-	private static final int UPPER_MASK = 0x80000000; /* most significant w-r bits */
-	private int[] mt = new int[N]; /* set initial seeds: N = 624 words */
+    /**
+     * 
+     */
+    public static final int DEFAULT_SEED = 4357;
+    private static final int LOWER_MASK = 0x7fffffff; /* least significant r bits */
+    private static final int M = 397;
+    private static final int MAG0 = 0x0;
+    private static final int MATRIX_A = 0x9908b0df; /* constant vector a */
+    private static final int MAG1 = MATRIX_A;
+    // private static final int[] mag01=new int[] {0x0, MATRIX_A};
+    /* mag01[x] = x * MATRIX_A for x=0,1 */
+    private static final int N = 624;
+    private static final long serialVersionUID = -3924937606119729891L;
+    private static final int TEMPERING_MASK_B = 0x9d2c5680;
+    private static final int TEMPERING_MASK_C = 0xefc60000;
+    private static final int UPPER_MASK = 0x80000000; /* most significant w-r bits */
+    private int[] mt = new int[N]; /* set initial seeds: N = 624 words */
 
-	/**
-	 * 
-	 */
-	private int mti;
-	
-	private final Semaphore mutex = new Semaphore(1);
+    /**
+     * 
+     */
+    private int mti;
+    
+    private final Semaphore mutex = new Semaphore(1);
 
-	private int seed;
+    private int seed;
 
-	/**
-	 * Constructs and returns a random number generator with a default seed,
-	 * which is a <b>constant</b>. Thus using this constructor will yield
-	 * generators that always produce exactly the same sequence. This method is
-	 * mainly intended to ease testing and debugging.
-	 */
-	public MersenneTwister() {
-		this(DEFAULT_SEED);
-	}
+    /**
+     * Constructs and returns a random number generator with a default seed,
+     * which is a <b>constant</b>. Thus using this constructor will yield
+     * generators that always produce exactly the same sequence. This method is
+     * mainly intended to ease testing and debugging.
+     */
+    public MersenneTwister() {
+        this(DEFAULT_SEED);
+    }
 
-	/**
-	 * Constructs and returns a random number generator seeded with the given
-	 * date.
-	 * 
-	 * @param d
-	 *            typically <tt>new java.util.Date()</tt>
-	 */
-	public MersenneTwister(final Date d) {
-		this((int) d.getTime());
-	}
+    /**
+     * Constructs and returns a random number generator seeded with the given
+     * date.
+     * 
+     * @param d
+     *            typically <tt>new java.util.Date()</tt>
+     */
+    public MersenneTwister(final Date d) {
+        this((int) d.getTime());
+    }
 
-	/**
-	 * Constructs and returns a random number generator with the given seed.
-	 * 
-	 * @param seed
-	 *            seed
-	 */
-	public MersenneTwister(final int seed) {
-		super();
-		setSeed(seed);
-	}
+    /**
+     * Constructs and returns a random number generator with the given seed.
+     * 
+     * @param seed
+     *            seed
+     */
+    public MersenneTwister(final int seed) {
+        super();
+        setSeed(seed);
+    }
 
-	/**
-	 * Returns a copy of the receiver; the copy will produce identical
-	 * sequences. After this call has returned, the copy and the receiver have
-	 * equal but separate state.
-	 * 
-	 * @return a copy of the receiver.
-	 */
-	public MersenneTwister clone() {
-		final MersenneTwister clone = (MersenneTwister) super.clone();
-		mutex.acquireUninterruptibly();
-		clone.mt = (int[]) this.mt.clone();
-		mutex.release();
-		return clone;
-	}
+    /**
+     * Returns a copy of the receiver; the copy will produce identical
+     * sequences. After this call has returned, the copy and the receiver have
+     * equal but separate state.
+     * 
+     * @return a copy of the receiver.
+     */
+    public MersenneTwister clone() {
+        final MersenneTwister clone = (MersenneTwister) super.clone();
+        mutex.acquireUninterruptibly();
+        clone.mt = (int[]) this.mt.clone();
+        mutex.release();
+        return clone;
+    }
 
-	@Override
-	public int getSeed() {
-		return seed;
-	}
-	
-	/**
-	 * Generates N words at one time.
-	 */
-	private void nextBlock() {
-		// TODO: Try optimized version
-		/*
-		 * // ******************** OPTIMIZED ********************** // only
-		 * 5-10% faster ? int y;
-		 * 
-		 * int kk; int[] cache = mt; // cached for speed int kkM; int limit =
-		 * N-M; for (kk=0,kkM=kk+M; kk<limit; kk++,kkM++) { y =
-		 * (cache[kk]&UPPER_MASK)|(cache[kk+1]&LOWER_MASK); cache[kk] =
-		 * cache[kkM] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1); } limit =
-		 * N-1; for (kkM=kk+(M-N); kk<limit; kk++,kkM++) { y =
-		 * (cache[kk]&UPPER_MASK)|(cache[kk+1]&LOWER_MASK); cache[kk] =
-		 * cache[kkM] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1); } y =
-		 * (cache[N-1]&UPPER_MASK)|(cache[0]&LOWER_MASK); cache[N-1] =
-		 * cache[M-1] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1);
-		 * 
-		 * this.mt = cache; this.mti = 0;
-		 */
+    @Override
+    public int getSeed() {
+        return seed;
+    }
+    
+    /**
+     * Generates N words at one time.
+     */
+    private void nextBlock() {
+        // TODO: Try optimized version
+        /*
+         * // ******************** OPTIMIZED ********************** // only
+         * 5-10% faster ? int y;
+         * 
+         * int kk; int[] cache = mt; // cached for speed int kkM; int limit =
+         * N-M; for (kk=0,kkM=kk+M; kk<limit; kk++,kkM++) { y =
+         * (cache[kk]&UPPER_MASK)|(cache[kk+1]&LOWER_MASK); cache[kk] =
+         * cache[kkM] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1); } limit =
+         * N-1; for (kkM=kk+(M-N); kk<limit; kk++,kkM++) { y =
+         * (cache[kk]&UPPER_MASK)|(cache[kk+1]&LOWER_MASK); cache[kk] =
+         * cache[kkM] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1); } y =
+         * (cache[N-1]&UPPER_MASK)|(cache[0]&LOWER_MASK); cache[N-1] =
+         * cache[M-1] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? mag0 : mag1);
+         * 
+         * this.mt = cache; this.mti = 0;
+         */
 
-		// ******************** UNOPTIMIZED **********************
-		int y;
+        // ******************** UNOPTIMIZED **********************
+        int y;
 
-		int kk;
+        int kk;
 
-		for (kk = 0; kk < N - M; kk++) {
-			y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-			mt[kk] = mt[kk + M] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? MAG0 : MAG1);
-		}
-		for (; kk < N - 1; kk++) {
-			y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-			mt[kk] = mt[kk + (M - N)] ^ (y >>> 1)
-					^ ((y & 0x1) == 0 ? MAG0 : MAG1);
-		}
-		y = (mt[N - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
-		mt[N - 1] = mt[M - 1] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? MAG0 : MAG1);
+        for (kk = 0; kk < N - M; kk++) {
+            y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
+            mt[kk] = mt[kk + M] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? MAG0 : MAG1);
+        }
+        for (; kk < N - 1; kk++) {
+            y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
+            mt[kk] = mt[kk + (M - N)] ^ (y >>> 1)
+                    ^ ((y & 0x1) == 0 ? MAG0 : MAG1);
+        }
+        y = (mt[N - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
+        mt[N - 1] = mt[M - 1] ^ (y >>> 1) ^ ((y & 0x1) == 0 ? MAG0 : MAG1);
 
-		this.mti = 0;
+        this.mti = 0;
 
-	}
+    }
 
-	/**
-	 * Returns a 32 bit uniformly distributed random number in the closed
-	 * interval <tt>[Integer.MIN_VALUE,Integer.MAX_VALUE]</tt> (including
-	 * <tt>Integer.MIN_VALUE</tt> and <tt>Integer.MAX_VALUE</tt>).
-	 */
-	public int nextInt() {
-		/* Each single bit including the sign bit will be random */
-		mutex.acquireUninterruptibly();
-		if (mti == N) {
-			nextBlock(); // generate N ints at one time
-		}
-		int y = mt[mti++];
-		mutex.release();
-		y ^= y >>> 11; // y ^= TEMPERING_SHIFT_U(y );
-		y ^= (y << 7) & TEMPERING_MASK_B; // y ^= TEMPERING_SHIFT_S(y) &
-											// TEMPERING_MASK_B;
-		y ^= (y << 15) & TEMPERING_MASK_C; // y ^= TEMPERING_SHIFT_T(y) &
-											// TEMPERING_MASK_C;
-		// y &= 0xffffffff; //you may delete this line if word size = 32
-		y ^= y >>> 18; // y ^= TEMPERING_SHIFT_L(y);
+    /**
+     * Returns a 32 bit uniformly distributed random number in the closed
+     * interval <tt>[Integer.MIN_VALUE,Integer.MAX_VALUE]</tt> (including
+     * <tt>Integer.MIN_VALUE</tt> and <tt>Integer.MAX_VALUE</tt>).
+     */
+    public int nextInt() {
+        /* Each single bit including the sign bit will be random */
+        mutex.acquireUninterruptibly();
+        if (mti == N) {
+            nextBlock(); // generate N ints at one time
+        }
+        int y = mt[mti++];
+        mutex.release();
+        y ^= y >>> 11; // y ^= TEMPERING_SHIFT_U(y );
+        y ^= (y << 7) & TEMPERING_MASK_B; // y ^= TEMPERING_SHIFT_S(y) &
+                                            // TEMPERING_MASK_B;
+        y ^= (y << 15) & TEMPERING_MASK_C; // y ^= TEMPERING_SHIFT_T(y) &
+                                            // TEMPERING_MASK_C;
+        // y &= 0xffffffff; //you may delete this line if word size = 32
+        y ^= y >>> 18; // y ^= TEMPERING_SHIFT_L(y);
 
-		return y;
-	}
+        return y;
+    }
 
-	/**
-	 * Sets the receiver's seed. This method resets the receiver's entire
-	 * internal state.
-	 */
-	@Override
-	public final void setSeed(final int seed) {
-		mutex.acquireUninterruptibly();
-		this.seed = seed;
-		mt[0] = seed & 0xffffffff;
-		for (int i = 1; i < N; i++) {
-			mt[i] = (1812433253 * (mt[i - 1] ^ (mt[i - 1] >> 30)) + i);
-			/* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
-			/* In the previous versions, MSBs of the seed affect */
-			/* only MSBs of the array mt[]. */
-			/* 2002/01/09 modified by Makoto Matsumoto */
-			mt[i] &= 0xffffffff;
-			/* for >32 bit machines */
-		}
-		mti = N;
-		mutex.release();
-	}
+    /**
+     * Sets the receiver's seed. This method resets the receiver's entire
+     * internal state.
+     */
+    @Override
+    public final void setSeed(final int seed) {
+        mutex.acquireUninterruptibly();
+        this.seed = seed;
+        mt[0] = seed & 0xffffffff;
+        for (int i = 1; i < N; i++) {
+            mt[i] = (1812433253 * (mt[i - 1] ^ (mt[i - 1] >> 30)) + i);
+            /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
+            /* In the previous versions, MSBs of the seed affect */
+            /* only MSBs of the array mt[]. */
+            /* 2002/01/09 modified by Makoto Matsumoto */
+            mt[i] &= 0xffffffff;
+            /* for >32 bit machines */
+        }
+        mti = N;
+        mutex.release();
+    }
 
-	@Override
-	public void setSeed(final int[] seed) {
-		if(seed.length < 1) {
-			throw new IllegalArgumentException();
-		}
-		setSeed(seed[0]);
-	}
+    @Override
+    public void setSeed(final int[] seed) {
+        if(seed.length < 1) {
+            throw new IllegalArgumentException();
+        }
+        setSeed(seed[0]);
+    }
 
-	@Override
-	public void setSeed(final long seed) {
-		setSeed((int) seed);
-	}
+    @Override
+    public void setSeed(final long seed) {
+        setSeed((int) seed);
+    }
 
-	@Override
-	public void nextBytes(final byte[] bytes) {
-		for(int i=0; i<bytes.length; i++) {
-			bytes[i] = (byte) nextInt();
-		}
-	}
+    @Override
+    public void nextBytes(final byte[] bytes) {
+        for(int i=0; i<bytes.length; i++) {
+            bytes[i] = (byte) nextInt();
+        }
+    }
 
-	@Override
-	public int nextInt(final int n) {
-		int next = nextInt();
-		if(nextInt() == Integer.MIN_VALUE) {
-			next = 0;
-		}
-		return next >= 0? next % n : -next % n ;
-	}
+    @Override
+    public int nextInt(final int n) {
+        int next = nextInt();
+        if(nextInt() == Integer.MIN_VALUE) {
+            next = 0;
+        }
+        return next >= 0? next % n : -next % n ;
+    }
 
-	@Override
-	public boolean nextBoolean() {
-		return nextInt() < 0;
-	}
+    @Override
+    public boolean nextBoolean() {
+        return nextInt() < 0;
+    }
 
-	@Override
-	public double nextGaussian() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public double nextGaussian() {
+        throw new UnsupportedOperationException();
+    }
 
 }

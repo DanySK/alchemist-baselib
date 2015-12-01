@@ -11,21 +11,19 @@ package it.unibo.alchemist.external.cern.jet.random;
 /**
  * Abstract base class for all continous distributions.
  * 
- * @author wolfgang.hoschek@cern.ch
- * @version 1.0, 09/24/99
  */
 public abstract class AbstractContinousDistribution extends AbstractDistribution {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6076386102892935656L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6076386102892935656L;
 
-	/**
-	 * Makes this class non instantiable, but still let's others inherit from
-	 * it.
-	 */
-	protected AbstractContinousDistribution() {
-		super();
-	}
+    /**
+     * Makes this class non instantiable, but still let's others inherit from
+     * it.
+     */
+    protected AbstractContinousDistribution() {
+        super();
+    }
 
 }

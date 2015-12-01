@@ -24,31 +24,31 @@ import it.unibo.alchemist.utils.L;
  */
 // CHECKSTYLE:OFF
 public abstract class AbstractPersistentObject implements Serializable, Cloneable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1020L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1020L;
 
-	/**
-	 * Not yet commented.
-	 */
-	protected AbstractPersistentObject() {
-		super();
-	}
+    /**
+     * Not yet commented.
+     */
+    protected AbstractPersistentObject() {
+        super();
+    }
 
-	/**
-	 * Returns a copy of the receiver. This default implementation does not
-	 * nothing except making the otherwise <tt>protected</tt> clone method
-	 * <tt>public</tt>.
-	 *
-	 * @return a copy of the receiver.
-	 */
-	public Object clone() {
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException e) {
-			L.error(e);
-		}
-		return null;
-	}
+    /**
+     * Returns a copy of the receiver. This default implementation does not
+     * nothing except making the otherwise <tt>protected</tt> clone method
+     * <tt>public</tt>.
+     *
+     * @return a copy of the receiver.
+     */
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            L.error(e);
+        }
+        return null;
+    }
 }

@@ -10,19 +10,17 @@ import cern.colt.function.IntFunction;
 /**
  * Interface for uniform pseudo-random number generating engines.
  * 
- * @author Danilo Pianini
- *
  */
 public interface RandomEngine extends DoubleFunction, IntFunction, RandomGenerator, Serializable {
 
-	/**
-	 * @return the initial seed.
-	 */
-	int getSeed();
-	
-	/**
-	 * @return an exact copy of this {@link RandomEngine}
-	 */
-	RandomEngine clone();
+    /**
+     * @return the initial seed.
+     */
+    int getSeed();
+
+    /**
+     * @return an exact copy of this {@link RandomEngine}
+     */
+    RandomEngine clone();
 
 }
