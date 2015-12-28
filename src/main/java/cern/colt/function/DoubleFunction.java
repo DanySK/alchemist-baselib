@@ -13,6 +13,7 @@ package cern.colt.function;
  * Interface that represents a function object: a function that takes a single
  * argument and returns a single value.
  */
+@Deprecated
 public interface DoubleFunction {
     /**
      * Applies a function to an argument.

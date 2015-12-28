@@ -44,6 +44,7 @@ import java.io.Serializable;
  * greater than, say, 5, are not recommended.
  * </p>
  */
+@Deprecated
 public class SortedList implements Serializable {
     private static final long serialVersionUID = -1549539544212731131L;
 

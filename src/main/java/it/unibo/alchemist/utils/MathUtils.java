@@ -324,6 +324,7 @@ public final class MathUtils {
      * @return a random integer in the interval [Integer.MIN_VALUE,
      *         Integer.MAX_VALUE]
      */
+    @Deprecated
     public static int randomInt() {
         return RG.nextInt();
     }

@@ -22,7 +22,6 @@ package it.unibo.alchemist.external.com.infomatiq.jsi;
 
 import gnu.trove.list.array.TDoubleArrayList;
 import gnu.trove.list.array.TIntArrayList;
-import it.unibo.alchemist.utils.L;
 
 import java.io.Serializable;
 
@@ -82,8 +81,6 @@ public class PriorityQueue implements Serializable {
     private TDoubleArrayList priorities;
     private boolean sortOrder = SORT_ORDER_ASCENDING;
 
-    private static final boolean INTERNAL_CONSISTENCY_CHECKING = false;
-
     public PriorityQueue(final boolean sortOrder) {
         this(sortOrder, 10);
     }
@@ -138,9 +135,7 @@ public class PriorityQueue implements Serializable {
         values.set(index, value);
         priorities.set(index, priority);
 
-        if (INTERNAL_CONSISTENCY_CHECKING) {
-            check();
-        }
+        assert check();
     }
 
     public int size() {
@@ -214,9 +209,7 @@ public class PriorityQueue implements Serializable {
             demote(0, tempValue, tempPriority);
         }
 
-        if (INTERNAL_CONSISTENCY_CHECKING) {
-            check();
-        }
+        assert check();
 
         return ret;
     }
@@ -229,12 +222,10 @@ public class PriorityQueue implements Serializable {
                 demote(i, values.get(i), priorities.get(i));
             }
         }
-        if (INTERNAL_CONSISTENCY_CHECKING) {
-            check();
-        }
+        assert check();
     }
 
-    private void check() {
+    private boolean check() {
         // for each entry, check that the child entries have a lower or equal
         // priority
         final int lastIndex = values.size() - 1;
@@ -246,7 +237,7 @@ public class PriorityQueue implements Serializable {
             if (leftIndex <= lastIndex) {
                 final double leftPriority = priorities.get(leftIndex);
                 if (sortsEarlierThan(leftPriority, currentPriority)) {
-                    L.error("Internal error in PriorityQueue");
+                    return false;
                 }
             }
 
@@ -254,9 +245,10 @@ public class PriorityQueue implements Serializable {
             if (rightIndex <= lastIndex) {
                 final double rightPriority = priorities.get(rightIndex);
                 if (sortsEarlierThan(rightPriority, currentPriority)) {
-                    L.error("Internal error in PriorityQueue");
+                    return false;
                 }
             }
         }
+        return true;
     }
 }

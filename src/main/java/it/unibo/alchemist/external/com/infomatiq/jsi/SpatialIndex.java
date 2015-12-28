@@ -143,11 +143,4 @@ public interface SpatialIndex {
    */
   Rectangle getBounds();
   
-  /**
-   * Returns a string identifying the type of
-   * spatial index, and the version number, 
-   * eg "SimpleIndex-0.1"
-   */
-  String getVersion();
-  
 }

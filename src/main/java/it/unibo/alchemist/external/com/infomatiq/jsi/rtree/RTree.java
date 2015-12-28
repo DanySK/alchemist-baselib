@@ -24,7 +24,6 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.procedure.TIntProcedure;
 import gnu.trove.stack.TIntStack;
 import gnu.trove.stack.array.TIntArrayStack;
-import it.unibo.alchemist.external.com.infomatiq.jsi.BuildProperties;
 import it.unibo.alchemist.external.com.infomatiq.jsi.Point;
 import it.unibo.alchemist.external.com.infomatiq.jsi.PriorityQueue;
 import it.unibo.alchemist.external.com.infomatiq.jsi.Rectangle;
@@ -510,13 +509,6 @@ public class RTree implements SpatialIndex, Serializable {
             bounds.maxY = n.mbrMaxY;
         }
         return bounds;
-    }
-
-    /**
-     * @see it.unibo.alchemist.external.com.infomatiq.jsi.SpatialIndex#getVersion()
-     */
-    public String getVersion() {
-        return "RTree-" + BuildProperties.getVersion();
     }
 
     // -------------------------------------------------------------------------

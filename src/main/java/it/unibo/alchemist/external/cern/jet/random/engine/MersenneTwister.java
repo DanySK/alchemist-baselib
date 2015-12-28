@@ -143,6 +143,7 @@ import java.util.concurrent.Semaphore;
  * @version 20101225
  * @see java.util.Random
  */
+@Deprecated
 public class MersenneTwister extends AbstractRandomEngine {
     /**
      * 

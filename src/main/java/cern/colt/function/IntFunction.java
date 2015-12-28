@@ -13,6 +13,7 @@ It is provided "as is" without expressed or implied warranty.
  * Interface that represents a function object: a function that takes 
  * a single argument and returns a single value.
  */
+@Deprecated
 public interface IntFunction {
 /**
  * Applies a function to an argument.

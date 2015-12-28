@@ -38,6 +38,7 @@ package it.unibo.alchemist.external.cern.jet.random.engine;
  * @see java.util.Random
  */
 // CHECKSTYLE:OFF
+@Deprecated
 public abstract class AbstractRandomEngine extends cern.colt.AbstractPersistentObject implements RandomEngine {
     /**
      * 

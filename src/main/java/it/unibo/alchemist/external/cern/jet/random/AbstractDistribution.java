@@ -68,6 +68,7 @@ import it.unibo.alchemist.external.cern.jet.random.engine.RandomEngine;
  * @see cern.jet.random.engine.Benchmark
  * @see cern.jet.random.Benchmark
  */
+@Deprecated
 public abstract class AbstractDistribution extends cern.colt.AbstractPersistentObject
         implements cern.colt.function.DoubleFunction,
         cern.colt.function.IntFunction {

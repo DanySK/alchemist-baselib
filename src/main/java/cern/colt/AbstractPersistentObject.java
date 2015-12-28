@@ -23,6 +23,7 @@ import it.unibo.alchemist.utils.L;
  * minimum effort.
  */
 // CHECKSTYLE:OFF
+@Deprecated
 public abstract class AbstractPersistentObject implements Serializable, Cloneable {
     /**
      * 

@@ -14,6 +14,7 @@ import java.io.File;
  * Collection of Alchemist's global variables.
  * 
  */
+@Deprecated
 public final class Global {
 
     /**

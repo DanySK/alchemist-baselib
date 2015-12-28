@@ -12,6 +12,7 @@ package it.unibo.alchemist.external.cern.jet.random;
  * Abstract base class for all continous distributions.
  * 
  */
+@Deprecated
 public abstract class AbstractContinousDistribution extends AbstractDistribution {
     /**
      * 

@@ -31,6 +31,7 @@ import it.unibo.alchemist.external.cern.jet.random.engine.RandomEngine;
  * <p>
  * 
  */
+@Deprecated
 public class Exponential extends AbstractContinousDistribution {
     /**
      * 

@@ -27,6 +27,7 @@ import java.util.Properties;
  * Allows build properties to be retrieved at runtime. Currently, version and
  * scmRevisionId are implemented.
  */
+@Deprecated
 public final class BuildProperties implements Serializable {
     /**
      * 

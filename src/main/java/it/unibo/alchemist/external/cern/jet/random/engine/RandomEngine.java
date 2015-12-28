@@ -11,6 +11,7 @@ import cern.colt.function.IntFunction;
  * Interface for uniform pseudo-random number generating engines.
  * 
  */
+@Deprecated
 public interface RandomEngine extends DoubleFunction, IntFunction, RandomGenerator, Serializable {
 
     /**
