@@ -8,11 +8,6 @@
  */
 package it.unibo.alchemist.utils;
 
-import it.unibo.alchemist.external.cern.jet.random.engine.MersenneTwister;
-import it.unibo.alchemist.external.cern.jet.random.engine.RandomEngine;
-
-import java.util.Date;
-
 import static org.apache.commons.math3.util.FastMath.nextAfter;
 import static org.apache.commons.math3.util.FastMath.sqrt;
 import static org.apache.commons.math3.util.FastMath.floor;
@@ -73,10 +68,6 @@ public final class MathUtils {
      * Radians to degrees conversion factor.
      */
     public static final double RAD_TO_DEG = DEGREES_IN_CIRCLE / (2 * Math.PI);
-    /**
-     * Internal RNG.
-     */
-    private static final RandomEngine RG = new MersenneTwister(new Date());
     /**
      * Factorial cache (double).
      */
@@ -316,17 +307,6 @@ public final class MathUtils {
      */
     public static double nextDown(final double d) {
         return nextAfter(d, Double.NEGATIVE_INFINITY);
-    }
-
-    /**
-     * Fast method to get a new random integer.
-     * 
-     * @return a random integer in the interval [Integer.MIN_VALUE,
-     *         Integer.MAX_VALUE]
-     */
-    @Deprecated
-    public static int randomInt() {
-        return RG.nextInt();
     }
 
     /**
